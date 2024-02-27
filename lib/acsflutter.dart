@@ -33,4 +33,8 @@ class Acsflutter {
   Future<String?> turnOnLocalVideo(bool show) {
     return AcsflutterPlatform.instance.turnOnLocalVideo(show);
   }
+
+  Future<String?> getState() {
+    return AcsflutterPlatform.instance.getState();
+  }
 }
