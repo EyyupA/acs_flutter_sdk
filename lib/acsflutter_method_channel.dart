@@ -19,13 +19,15 @@ class MethodChannelAcsflutter extends AcsflutterPlatform {
 
   @override
   Future<String?> getPlatformVersion() async {
-    final version = await methodChannel.invokeMethod<String>('getPlatformVersion');
+    final version =
+        await methodChannel.invokeMethod<String>('getPlatformVersion');
     return version;
   }
 
   @override
   Future<String?> getAllPermissions() async {
-    final version = await methodChannel.invokeMethod<String>('getAllPermissions');
+    final version =
+        await methodChannel.invokeMethod<String>('getAllPermissions');
     return version;
   }
 
@@ -51,7 +53,8 @@ class MethodChannelAcsflutter extends AcsflutterPlatform {
 
   @override
   Future<String?> startOneToOneVideoCall(String calleeId) async {
-    final version = await methodChannel.invokeMethod<String>('startOneToOneVideoCall', {
+    final version =
+        await methodChannel.invokeMethod<String>('startOneToOneVideoCall', {
       "calleeId": calleeId,
     });
     return version;
@@ -59,9 +62,16 @@ class MethodChannelAcsflutter extends AcsflutterPlatform {
 
   @override
   Future<String?> turnOnLocalVideo(bool show) async {
-    final version = await methodChannel.invokeMethod<String>('turnOnLocalVideo', {
+    final version =
+        await methodChannel.invokeMethod<String>('turnOnLocalVideo', {
       "show": show,
     });
+    return version;
+  }
+
+  @override
+  Future<String?> getState() async {
+    final version = await methodChannel.invokeMethod<String>('getState');
     return version;
   }
 }

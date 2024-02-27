@@ -6,6 +6,8 @@ import android.content.Context;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.azure.android.communication.calling.CallState;
+
 import io.flutter.Log;
 import io.flutter.embedding.engine.plugins.FlutterPlugin;
 import io.flutter.embedding.engine.plugins.activity.ActivityAware;
@@ -91,6 +93,10 @@ public class AcsflutterPlugin implements FlutterPlugin, MethodCallHandler, Activ
       Log.d("tag", "switchLocalVideoSource() called");
       implementations.switchLocalVideoSource();
       result.success("");
+    } else if (call.method.equals("getState")) {
+      Log.d("tag", "getState() called");
+      CallState callState = implementations.getState();
+      result.success(callState);
     } else {
       result.notImplemented();
     }

@@ -17,7 +17,6 @@ import android.widget.Toast;
 import com.azure.android.communication.calling.AcceptCallOptions;
 import com.azure.android.communication.calling.Call;
 import com.azure.android.communication.calling.CallAgent;
-import com.azure.android.communication.calling.CallAgentBase;
 import com.azure.android.communication.calling.CallClient;
 import com.azure.android.communication.calling.CallState;
 import com.azure.android.communication.calling.CreateViewOptions;
@@ -243,6 +242,10 @@ public class Implementations {
                 e.printStackTrace();
             }
         }
+    }
+
+    public CallState getState() {
+        return this.call.getState();
     }
 
 
