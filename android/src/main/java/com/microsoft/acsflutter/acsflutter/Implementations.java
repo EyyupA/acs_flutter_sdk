@@ -245,6 +245,7 @@ public class Implementations {
     }
 
     public CallState getState() {
+        if(this.call == null) return null;
         return this.call.getState();
     }
 
