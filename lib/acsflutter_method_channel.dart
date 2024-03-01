@@ -85,8 +85,7 @@ class MethodChannelAcsflutter extends AcsflutterPlatform {
 
   @override
   Future<String?> getState() async {
-    final version = await methodChannel.invokeMethod<String>('getState');
-    return version;
+    return await methodChannel.invokeMethod<String>('getState');
   }
 
   void _initialize() {

@@ -37,6 +37,8 @@ public class AcsflutterPlugin implements FlutterPlugin, MethodCallHandler, Activ
   private MethodChannel channel;
   private EventChannel eventChannel;
 
+  private final EventStreamHandler eventStreamHandler = EventStreamHandler.getInstance();
+
   @Override
   public void onAttachedToEngine(@NonNull FlutterPluginBinding flutterPluginBinding) {
     Context context = flutterPluginBinding.getApplicationContext();
@@ -57,6 +59,8 @@ public class AcsflutterPlugin implements FlutterPlugin, MethodCallHandler, Activ
 
     // Event Channel
     eventChannel = new EventChannel(flutterPluginBinding.getBinaryMessenger(), "custom_azure_communication_calling_sdk_events");
+    eventChannel.setStreamHandler(eventStreamHandler);
+
   }
 
   @Override
@@ -100,7 +104,7 @@ public class AcsflutterPlugin implements FlutterPlugin, MethodCallHandler, Activ
       result.success("");
     } else if (call.method.equals("getState")) {
       Log.d("tag", "getState() called");
-      CallState callState = implementations.getState();
+      String callState = implementations.getState();
       result.success(callState);
     } else {
       result.notImplemented();

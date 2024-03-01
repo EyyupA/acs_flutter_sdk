@@ -6,6 +6,17 @@ import java.util.Map;
 import io.flutter.plugin.common.EventChannel;
 
 public class EventStreamHandler implements EventChannel.StreamHandler {
+    private static EventStreamHandler INSTANCE;
+
+    private EventStreamHandler() {}
+
+    public static EventStreamHandler getInstance() {
+        if(INSTANCE == null) {
+            INSTANCE = new EventStreamHandler();
+        }
+
+        return INSTANCE;
+    }
 
 
     private EventChannel.EventSink eventSink;

@@ -5,10 +5,10 @@ import com.azure.android.communication.calling.PropertyChangedListener;
 
 public class AzurePropertyChangedListener implements PropertyChangedListener {
 
-    EventStreamHandler stream = new EventStreamHandler();
+    EventStreamHandler eventStreamHandler = EventStreamHandler.getInstance();
 
     @Override
     public void onPropertyChanged(PropertyChangedEvent propertyChangedEvent) {
-        stream.changedCallState(propertyChangedEvent.toString());
+        eventStreamHandler.changedCallState(propertyChangedEvent.toString());
     }
 }
