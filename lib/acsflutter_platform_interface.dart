@@ -48,7 +48,7 @@ abstract class AcsflutterPlatform extends PlatformInterface {
     throw UnimplementedError('stopCall() has not been implemented.');
   }
 
-  Future<String?> startOneToOneVideoCall(String calleeId) {
+  Future<String?> startOneToOneVideoCall(String calleeId, AcsFlutterEventListener acsFlutterEventListener) {
     throw UnimplementedError(
         'startOneToOneVideoCall() has not been implemented.');
   }

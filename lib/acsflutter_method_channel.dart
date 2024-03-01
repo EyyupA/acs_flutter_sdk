@@ -44,7 +44,7 @@ class MethodChannelAcsflutter extends AcsflutterPlatform {
   }
 
   @override
-  Future<String?> startCall(String calleeId) async {
+  Future<String?> startCall(String calleeId, AcsFlutterEventListener listener) async {
     final version = await methodChannel.invokeMethod<String>('startCall', {
       "calleeId": calleeId,
     });
@@ -62,11 +62,15 @@ class MethodChannelAcsflutter extends AcsflutterPlatform {
   }
 
   @override
-  Future<String?> startOneToOneVideoCall(String calleeId) async {
+  Future<String?> startOneToOneVideoCall(String calleeId, AcsFlutterEventListener listener) async {
     final version =
         await methodChannel.invokeMethod<String>('startOneToOneVideoCall', {
       "calleeId": calleeId,
     });
+    _listener = listener;
+    if(!_eventChannelIsInitialized) {
+      _initialize();
+    }
     return version;
   }
 
@@ -90,7 +94,7 @@ class MethodChannelAcsflutter extends AcsflutterPlatform {
       final data = message['data'];
       switch (message['event']) {
         case "changedCallState":
-          _listener?.conferenceJoined?.call(data["url"]);
+          _listener.statusChanged?.call(data);
           break;
       }
     }).onError((error) {
