@@ -1,3 +1,4 @@
+import 'acsflutter_call_event_listener.dart';
 import 'acsflutter_platform_interface.dart';
 
 class Acsflutter {
@@ -18,8 +19,8 @@ class Acsflutter {
     return AcsflutterPlatform.instance.createAgent();
   }
 
-  Future<String?> startCall(String calleeId) {
-    return AcsflutterPlatform.instance.startCall(calleeId);
+  Future<String?> startCall(String calleeId, AcsFlutterEventListener listener) {
+    return AcsflutterPlatform.instance.startCall(calleeId, listener ?? new AcsFlutterEventListener());
   }
 
   Future<String?> stopCall() {

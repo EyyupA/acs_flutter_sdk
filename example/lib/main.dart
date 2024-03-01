@@ -1,3 +1,4 @@
+import 'package:azure_communication_services_rtc/acsflutter_call_event_listener.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 
@@ -101,7 +102,12 @@ class _MyAppState extends State<MyApp> {
                         ),
                         TextButton(
                           onPressed: () async {
-                            await _acsflutterPlugin.startCall(_textController.text);
+                            AcsFlutterEventListener listener = AcsFlutterEventListener(
+                                statusChanged: (state) {
+                                  debugPrint('Call state: $state');
+                                }
+                            );
+                            await _acsflutterPlugin.startCall(_textController.text, listener);
                           },
                           child: const Text("Call"),
                         ),

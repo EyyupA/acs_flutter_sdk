@@ -9,9 +9,6 @@ import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import android.content.Context;
 import android.media.AudioManager;
-import android.util.DisplayMetrics;
-import android.view.View;
-import android.widget.GridLayout;
 import android.widget.Toast;
 
 import com.azure.android.communication.calling.AcceptCallOptions;
@@ -45,7 +42,6 @@ import com.azure.android.communication.common.MicrosoftTeamsUserIdentifier;
 import com.azure.android.communication.common.PhoneNumberIdentifier;
 import com.azure.android.communication.common.UnknownIdentifier;
 
-import java.beans.PropertyChangeEvent;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -56,6 +52,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
 
 import io.flutter.Log;
+import io.flutter.plugin.common.EventChannel;
 
 public class Implementations {
     private final CallClient callClient = new CallClient();
@@ -125,18 +122,21 @@ public class Implementations {
     }
 
 
-    public void startCall(String calleeId) {
+    public void startCall(String calleeId, EventChannel eventChannel) {
         try {
             // start call
             StartCallOptions options = new StartCallOptions();
             call = callAgent.startCall(context,
                     Collections.singletonList(new CommunicationUserIdentifier(calleeId) ),
                     options);
+            call.addOnStateChangedListener(new AzurePropertyChangedListener());
         } catch (Exception ex) {
             
             Toast.makeText(context, "Failed to create start call.", Toast.LENGTH_SHORT).show();
         }
     }
+
+
 
     public void stopCall() {
         if (this.call != null) {

@@ -12,6 +12,7 @@ import io.flutter.Log;
 import io.flutter.embedding.engine.plugins.FlutterPlugin;
 import io.flutter.embedding.engine.plugins.activity.ActivityAware;
 import io.flutter.embedding.engine.plugins.activity.ActivityPluginBinding;
+import io.flutter.plugin.common.EventChannel;
 import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
@@ -34,6 +35,7 @@ public class AcsflutterPlugin implements FlutterPlugin, MethodCallHandler, Activ
   /// This local reference serves to register the plugin with the Flutter Engine and unregister it
   /// when the Flutter Engine is detached from the Activity
   private MethodChannel channel;
+  private EventChannel eventChannel;
 
   @Override
   public void onAttachedToEngine(@NonNull FlutterPluginBinding flutterPluginBinding) {
@@ -50,8 +52,11 @@ public class AcsflutterPlugin implements FlutterPlugin, MethodCallHandler, Activ
             .registerViewFactory("nativeVideoStreamView", new NativeVideoStreamViewFactory(viewManager));
 
     // Method Channel
-    channel = new MethodChannel(flutterPluginBinding.getBinaryMessenger(), "acsflutter");
+    channel = new MethodChannel(flutterPluginBinding.getBinaryMessenger(), "custom_azure_communication_calling_sdk");
     channel.setMethodCallHandler(this);
+
+    // Event Channel
+    eventChannel = new EventChannel(flutterPluginBinding.getBinaryMessenger(), "custom_azure_communication_calling_sdk_events");
   }
 
   @Override
@@ -71,7 +76,7 @@ public class AcsflutterPlugin implements FlutterPlugin, MethodCallHandler, Activ
     } else if (call.method.equals("startCall")) {
       Log.d("tag", "startCall() called");
       String calleeId = call.argument("calleeId");
-      implementations.startCall(calleeId);
+      implementations.startCall(calleeId, eventChannel);
       result.success("");
     } else if (call.method.equals("stopCall")) {
       Log.d("tag", "stopCall() called");

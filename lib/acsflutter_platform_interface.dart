@@ -1,5 +1,6 @@
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
+import 'acsflutter_call_event_listener.dart';
 import 'acsflutter_method_channel.dart';
 
 abstract class AcsflutterPlatform extends PlatformInterface {
@@ -39,7 +40,7 @@ abstract class AcsflutterPlatform extends PlatformInterface {
     throw UnimplementedError('createAgent() has not been implemented.');
   }
 
-  Future<String?> startCall(String calleeId) {
+  Future<String?> startCall(String calleeId, AcsFlutterEventListener acsFlutterEventListener) {
     throw UnimplementedError('startCall() has not been implemented.');
   }
 
