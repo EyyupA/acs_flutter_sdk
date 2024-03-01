@@ -27,8 +27,8 @@ class Acsflutter {
     return AcsflutterPlatform.instance.stopCall();
   }
 
-  Future<String?> startOneToOneVideoCall(String calleeId) {
-    return AcsflutterPlatform.instance.startOneToOneVideoCall(calleeId);
+  Future<String?> startOneToOneVideoCall(String calleeId, AcsFlutterEventListener listener) {
+    return AcsflutterPlatform.instance.startOneToOneVideoCall(calleeId, listener ?? new AcsFlutterEventListener());
   }
 
   Future<String?> turnOnLocalVideo(bool show) {
